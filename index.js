@@ -2,8 +2,8 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const mongoose = require('mongoose');
+var mysql = require('mysql');
+var myMongoDB = require('mongodb');
 const session = require('express-session');
 
 //Initialize the app
@@ -21,13 +21,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Configure MySQL connection
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'your_password',
-    database: 'proj2024mysql'
-});
+
+// Configure session
+app.use(session({
+    secret: 'your_secret_key',
+    resave: false,
+    saveUninitialized: true
+}));
+
+
+
+
+
 
 //have the app listen on port 3004
 app.listen(port, () => {
