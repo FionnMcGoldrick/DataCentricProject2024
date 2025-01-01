@@ -2,8 +2,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-var mysql = require('mysql');
-var myMongoDB = require('mongodb');
+var mysql = require('./mysql');
+var myMongoDB = require('./mongodb');
+var routes = require('./routes');
 const session = require('express-session');
 
 //Initialize the app
@@ -31,12 +32,10 @@ app.use(session({
 
 
 
-
-
-
 //have the app listen on port 3004
 app.listen(port, () => {
     res.send(`App listening at http://localhost:${port}`)
+    console.log(`App listening at http://localhost:${port}`)
 });
 
 
