@@ -1,3 +1,6 @@
+//defining mysql
+var mysql = require('mysql');
+
 // Configure MySQL connection
 const db = mysql.createConnection({
     host: 'localhost',

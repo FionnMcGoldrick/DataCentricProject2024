@@ -4,8 +4,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 var mysql = require('./mysql');
 var myMongoDB = require('./mongodb');
-var routes = require('./routes');
-const session = require('express-session');
 
 //Initialize the app
 const app = express();
@@ -22,26 +20,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
-// Configure session
-app.use(session({
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: true
-}));
-
-
-
 //have the app listen on port 3004
 app.listen(port, () => {
-    res.send(`App listening at http://localhost:${port}`)
     console.log(`App listening at http://localhost:${port}`)
 });
 
+//app.get() method to handle GET requests
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 });
+
+app.get('/students', (req, res) => {
+    res.send('Hello Students!')
+});
+
+app.get('/grades', (req, res) => {
+    res.send('Hello Grades!')
+});
+
+app.get('/lecturers', (req, res) => {
+    res.send('Hello Lecturers!')
+});
+
+
+
 
 
 
