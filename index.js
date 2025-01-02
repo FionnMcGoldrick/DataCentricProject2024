@@ -27,8 +27,15 @@ app.listen(port, () => {
 
 //app.get() method to handle GET requests
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+app.get("/", (req, res) => {
+    res.send(`
+        <h1>G0042349</h1>
+        <ul>
+            <li><a href="/students">Students Page</a></li>
+            <li><a href="/grades">Grades Page</a></li>
+            <li><a href="/lecturers">Lecturer Page</a></li>
+        </ul>
+    `);
 });
 
 app.get('/students', (req, res) => {
