@@ -1,11 +1,10 @@
 // Import required modules
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-var mysql = require('./mysql');
-var myMongoDB = require('./mongodb');
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const { getAllStudents } = require("./mysql");
 
-//Initialize the app
+// Initialize the app
 const app = express();
 const port = 3004;
 
@@ -14,19 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Middleware for serving static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Set view engine to EJS
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
-//have the app listen on port 3004
-app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`)
-});
-
-//app.get() method to handle GET requests
-
+// Home route
 app.get("/", (req, res) => {
     res.send(`
         <h1>G0042349</h1>
@@ -38,20 +31,18 @@ app.get("/", (req, res) => {
     `);
 });
 
-app.get('/students', (req, res) => {
-    res.send('Hello Students!')
+// Students route
+app.get("/students", async (req, res) => {
+    try {
+        const students = await getAllStudents(); // Call the MySQL method
+        res.render("students", { students }); // Render the EJS page with data
+    } catch (err) {
+        console.error("Error retrieving students:", err);
+        res.status(500).send("Error retrieving students from database");
+    }
 });
 
-app.get('/grades', (req, res) => {
-    res.send('Hello Grades!')
+// Start the server
+app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
 });
-
-app.get('/lecturers', (req, res) => {
-    res.send('Hello Lecturers!')
-});
-
-
-
-
-
-
