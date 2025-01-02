@@ -32,7 +32,21 @@ const getAllStudents = async () => {
     });
 };
 
+//get all grades method
+const getAllGrades = async () => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM grade ORDER BY sid ASC", (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
+
 // Export functions and database
 module.exports = {
     getAllStudents,
+    getAllGrades,
 };

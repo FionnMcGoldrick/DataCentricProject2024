@@ -31,12 +31,14 @@
 </head>
 <body>
     <h1>Students List</h1>
+
     <table>
         <thead>
             <tr>
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Age</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +47,7 @@
                     <td><%= student.sid %></td>
                     <td><%= student.name %></td>
                     <td><%= student.age %></td>
+                    <td>Update</td>
                 </tr>
             <% }) %>
         </tbody>

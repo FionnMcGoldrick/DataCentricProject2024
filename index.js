@@ -2,7 +2,8 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const { getAllStudents } = require("./mysql");
+const { getAllStudents} = require("./mysql");
+const { getAllGrades} = require("./mysql");	
 
 // Initialize the app
 const app = express();
@@ -39,6 +40,18 @@ app.get("/students", async (req, res) => {
     } catch (err) {
         console.error("Error retrieving students:", err);
         res.status(500).send("Error retrieving students from database");
+    }
+});
+
+// Grades route
+app.get("/grades", async (req, res) => {
+    try {
+        const grades = await getAllGrades(); // Call the MySQL method
+        res.render("grades", { grades }); // Render the EJS page with data
+    }
+    catch (err) {
+        console.error("Error retrieving grades:", err);
+        res.status(500).send("Error retrieving grades from database");
     }
 });
 
