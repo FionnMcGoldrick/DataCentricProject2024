@@ -45,6 +45,20 @@ const getLecturerById = async (id) => {
     });
 };
 
+//delete lecturer by id
+const deleteLecturerById = async (id
+) => {
+    return new Promise((resolve, reject) => {
+        lecturer.findByIdAndDelete(id, (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
 
 //add exports
 module.exports = { getLecturers, getLecturerById };

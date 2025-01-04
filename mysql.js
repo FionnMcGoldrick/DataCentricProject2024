@@ -32,6 +32,26 @@ const getStudents = async () => {
   });
 };
 
+//method for adding a student
+const addStudent = async (name, age, sid) => {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            "INSERT INTO student (name, age, sid) VALUES (?, ?, ?)",
+            [name, age, sid],
+            (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            }
+        );
+    });
+};
+
+
+
+
 // Method for getting all grades
 const getGrades = async () => {
   return new Promise((resolve, reject) => {
@@ -56,9 +76,9 @@ const getGrades = async () => {
   });
 };
 
-
-// Export functions and database
+// Exporting the methods
 module.exports = {
-  getStudents,
-  getGrades
+    getStudents,
+    getGrades,
+    addStudent, 
 };

@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const { getStudents, getGrades} = require("./mysql");
+const { getStudents, getGrades, addStudent} = require("./mysql");
 const { getLecturers } = require("./mongodb");
 
 // Initialize the app
@@ -48,6 +48,35 @@ app.get("/students", async (req, res) => {
     }
 });
 
+//app.get method to get the students by id
+app.get("/students/add", (req, res) => {
+    res.render("addstudents"); // Render the EJS page for adding a student
+});
+
+
+//app.post method for creating a new student
+app.post("/students/add", async (req, res) => {
+    const { name, age, sid } = req.body;
+    try {
+        await addStudent(name, age, sid); // Function to add a student to the database
+        res.redirect("/students"); // Redirect to the students page after successful addition
+    } catch (err) {
+        console.error("Error adding student:", err);
+        res.status(500).send("Error adding student to database");
+    }
+});     
+
+app.get("/students/:id", async (req, res) => {
+    try {
+        const student = await getStudentById(req.params.id);
+        res.render("student", { student });
+    } catch (err) {
+        console.error("Error retrieving student:", err);
+        res.status(500).send("Error retrieving student from database");
+    }
+});
+
+
 // Grades route
 app.get("/grades", async (req, res) => {
     try {
@@ -57,7 +86,8 @@ app.get("/grades", async (req, res) => {
       console.error("Error retrieving grades:", err);
       res.status(500).send("Error retrieving grades from the database");
     }
-  });
+
+});
 
  //app.get method to get the lecturers
  app.get("/lecturers", async (req, res) => {
@@ -67,6 +97,17 @@ app.get("/grades", async (req, res) => {
     } catch (err) {
         console.error("Error retrieving lecturers:", err);
         res.status(500).send("Error retrieving lecturers from database");
+    }
+});
+
+//app.get method to get the lecturers by id
+app.delete("/lecturers/:id", async (req, res) => {
+    try {
+        await Lecturer.findByIdAndDelete(req.params.id);
+        res.status(204).send();
+    } catch (err) {
+        console.error("Error deleting lecturer:", err);
+        res.status(500).send("Error deleting lecturer from database");
     }
 });
 
