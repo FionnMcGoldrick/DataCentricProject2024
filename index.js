@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { getStudents, getGrades} = require("./mysql");
+const { getLecturers } = require("./mongodb");
 
 // Initialize the app
 const app = express();
@@ -58,8 +59,16 @@ app.get("/grades", async (req, res) => {
     }
   });
 
-  app.get("/lecturers", async (req, res) => {
-    res.render("lecturers");
-  });
+ //app.get method to get the lecturers
+ app.get("/lecturers", async (req, res) => {
+    try {
+        const lecturers = await getLecturers(); // Call the MongoDB method
+        res.render("lecturers", { lecturers }); // Render the EJS page with data
+    } catch (err) {
+        console.error("Error retrieving lecturers:", err);
+        res.status(500).send("Error retrieving lecturers from database");
+    }
+});
+
 
 

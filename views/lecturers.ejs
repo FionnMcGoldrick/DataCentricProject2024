@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturers</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            color: black;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lecturers</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Lecturer ID</th>
+                    <th>Name</th>
+                    <th>Department ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% lecturers.forEach(function(lecturer) { %>
+                    <tr>
+                        <td><%= lecturer._id %></td>
+                        <td><%= lecturer.name %></td>
+                        <td><%= lecturer.did %></td>
+                        <td>Delete</td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

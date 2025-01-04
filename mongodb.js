@@ -21,17 +21,16 @@ const lecturerSchema = new mongoose.Schema({
 //collection name
 const lecturer = mongoose.model('lecturer', lecturerSchema);
 
+//get all lecturers
 const getLecturers = async () => {
-    return new Promise((resolve, reject) => {
-        lecturer.find({}, (err, results) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(results);
-            }
-        });
-    });
+    try {
+        return await lecturer.find({}).sort({ _id: 1 }); 
+    } catch (err) {
+        console.error('Error fetching lecturers:', err);
+        throw err;
+    }
 };
+
 
 //get lecturers by id 
 const getLecturerById = async (id) => {
