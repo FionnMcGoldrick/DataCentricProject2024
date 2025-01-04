@@ -90,14 +90,14 @@ const getGrades = async () => {
   return new Promise((resolve, reject) => {
     pool.query(
       `SELECT 
-             grade.sid, 
-             student.name AS student_name, 
-             module.name AS module_name, 
-             grade.grade 
-           FROM grade 
-           INNER JOIN student ON grade.sid = student.sid 
-           INNER JOIN module ON grade.mid = module.mid 
-           ORDER BY student.name ASC, grade.grade ASC`,
+         student.sid, 
+         student.name AS student_name, 
+         module.name AS module_name, 
+         grade.grade 
+       FROM student 
+       LEFT JOIN grade ON student.sid = grade.sid 
+       LEFT JOIN module ON grade.mid = module.mid 
+       ORDER BY student.name ASC, grade.grade ASC`,
       (err, results) => {
         if (err) {
           reject(err);
@@ -108,6 +108,7 @@ const getGrades = async () => {
     );
   });
 };
+
 
 //method for deleting a student from database
 const deleteStudentById = async (sid) => {
