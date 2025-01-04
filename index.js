@@ -2,8 +2,8 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const { getAllStudents} = require("./mysql");
-const { getAllGrades} = require("./mysql");	
+const { getStudents, getGrades, getModules} = require("./mysql");
+const { get } = require("http");
 
 // Initialize the app
 const app = express();
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 // Students route
 app.get("/students", async (req, res) => {
     try {
-        const students = await getAllStudents(); // Call the MySQL method
+        const students = await getStudents(); // Call the MySQL method
         res.render("students", { students }); // Render the EJS page with data
     } catch (err) {
         console.error("Error retrieving students:", err);
@@ -46,14 +46,13 @@ app.get("/students", async (req, res) => {
 // Grades route
 app.get("/grades", async (req, res) => {
     try {
-        const grades = await getAllGrades(); // Call the MySQL method
-        res.render("grades", { grades }); // Render the EJS page with data
+      const grades = await getGrades(); // Get all grade details
+      res.render("grades", { grades }); // Pass to the EJS template
+    } catch (err) {
+      console.error("Error retrieving grades:", err);
+      res.status(500).send("Error retrieving grades from the database");
     }
-    catch (err) {
-        console.error("Error retrieving grades:", err);
-        res.status(500).send("Error retrieving grades from database");
-    }
-});
+  });
 
 // Start the server
 app.listen(port, () => {

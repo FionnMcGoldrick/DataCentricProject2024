@@ -41,13 +41,18 @@
                 </tr>
             </thead>
             <tbody>
-                <% grades.forEach(function(grade) { %>
-                    <tr>
-                        <td><%= grade.studentId %></td>
-                        <td><%= grade.course %></td>
-                        <td><%= grade.grade %></td>
-                    </tr>
-                <% }); %>
+                <tbody>
+                    
+                        <% grades.forEach(function(grade) { %>
+                          <tr>
+                            <td><%= grade.student_name %></td>
+                            <td><%= grade.module_name %></td>
+                            <td><%= grade.grade %></td>
+                          </tr>
+                        <% }); %>
+                      
+                </tbody>
+                
             </tbody>
         </table>
     </div>
