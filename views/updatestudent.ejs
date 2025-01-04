@@ -56,26 +56,6 @@
     }
 </style>
 
-<script>
-
-    // Validate the form before submission
-    document.getElementById("updateStudentForm").addEventListener("submit", function (event) {
-        const nameInput = document.getElementById("name").value.trim();
-        const ageInput = parseInt(document.getElementById("age").value, 10);
-
-        if (nameInput.length < 3) {
-            alert("Name must be at least 3 characters long.");
-            event.preventDefault(); // Prevent form submission
-        }
-
-        if (isNaN(ageInput) || ageInput <= 18) {
-            alert("Age must be greater than 18.");
-            event.preventDefault(); // Prevent form submission
-        }
-    });
-
-</script>
-
 <body>
     <h1>Update Student</h1>
     <form id="updateStudentForm" action="/students/update" method="POST">

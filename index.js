@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { getStudents, addStudent, getStudentById, updateStudent } = require("./mysql");
-const { getLecturers } = require("./mongodb");
+const { getLecturers, deleteLecturerById } = require("./mongodb");
 
 // Initialize the app
 const app = express();
@@ -140,16 +140,15 @@ app.get("/grades", async (req, res) => {
     }
 });
 
-//app.get method to get the lecturers by id
-app.delete("/lecturers/:id", async (req, res) => {
+//app to delete a lecturer by id
+app.get("/lecturers/delete/:id", async (req, res) => {
     try {
-        await Lecturer.findByIdAndDelete(req.params.id);
-        res.status(204).send();
+        await deleteLecturerById(req.params.id); // Call the MongoDB method
+        res.redirect("/lecturers"); // Redirect to the lecturers page after successful deletion
     } catch (err) {
         console.error("Error deleting lecturer:", err);
         res.status(500).send("Error deleting lecturer from database");
     }
 });
-
 
 

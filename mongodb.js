@@ -46,20 +46,17 @@ const getLecturerById = async (id) => {
 };
 
 //delete lecturer by id
-const deleteLecturerById = async (id
-) => {
-    return new Promise((resolve, reject) => {
-        lecturer.findByIdAndDelete(id, (err, results) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(results);
-            }
-        });
-    });
-}
+const deleteLecturerById = async (id) => {
+    try {
+        const results = await Lecturer.findByIdAndDelete(id); // Returns a Promise
+        return results;
+    } catch (err) {
+        throw err; // Rethrow error to handle it upstream
+    }
+};
+
 
 
 //add exports
-module.exports = { getLecturers, getLecturerById };
+module.exports = { getLecturers, getLecturerById, deleteLecturerById };
 

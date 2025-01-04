@@ -84,11 +84,6 @@ const getStudentById = async (sid) => {
     });
 };
 
-  
-
-
-
-
 
 // Method for getting all grades
 const getGrades = async () => {
