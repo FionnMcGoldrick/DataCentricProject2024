@@ -109,6 +109,23 @@ const getGrades = async () => {
   });
 };
 
+//method for deleting a student from database
+const deleteStudentById = async (sid) => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          // Delete related grades first
+          await pool.query("DELETE FROM grade WHERE sid = ?", [sid]);
+          
+          // Delete the student
+          await pool.query("DELETE FROM student WHERE sid = ?", [sid]);
+
+          resolve();
+      } catch (err) {
+          reject(err);
+      }
+  });
+};
+
 // Exporting the methods
 module.exports = {
     getStudents,
@@ -116,5 +133,6 @@ module.exports = {
     addStudent,
     getStudentById, 
     updateStudent, 
+    deleteStudentById
   };
   

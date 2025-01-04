@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const { getStudents, addStudent, getStudentById, updateStudent } = require("./mysql");
+const { getStudents, addStudent, getStudentById, updateStudent, getGrades, deleteStudentById } = require("./mysql");
 const { getLecturers, deleteLecturerById } = require("./mongodb");
 
 // Initialize the app
@@ -28,7 +28,7 @@ app.listen(port, () => {
 // Home route
 app.get("/", (req, res) => {
     res.send(`
-        <h1>G0042349</h1>
+        <h1>G00422349</h1>
         <ul>
             <li><a href="/students">Students Page</a></li>
             <li><a href="/grades">Grades Page</a></li>
@@ -89,9 +89,6 @@ app.post("/students/update", async (req, res) => {
     }
 });
 
-  
-
-
 // Get student by ID and render the update page
 app.get("/students/update/:id", async (req, res) => {
     try {
@@ -115,9 +112,7 @@ app.get("/students/update/:id", async (req, res) => {
     }
   });
     
-
-
-// Grades route
+//method to get the grades
 app.get("/grades", async (req, res) => {
     try {
       const grades = await getGrades(); // Get all grade details
@@ -129,7 +124,7 @@ app.get("/grades", async (req, res) => {
 
 });
 
- //app.get method to get the lecturers
+ // method to get the lecturers
  app.get("/lecturers", async (req, res) => {
     try {
         const lecturer = await getLecturers(); // Call the MongoDB method
@@ -140,7 +135,7 @@ app.get("/grades", async (req, res) => {
     }
 });
 
-//app to delete a lecturer by id
+//method to delete a lecturer by id
 app.get("/lecturers/delete/:id", async (req, res) => {
     try {
         await deleteLecturerById(req.params.id); // Call the MongoDB method
@@ -148,6 +143,17 @@ app.get("/lecturers/delete/:id", async (req, res) => {
     } catch (err) {
         console.error("Error deleting lecturer:", err);
         res.status(500).send("Error deleting lecturer from database");
+    }
+});
+
+//method to delete a student by id
+app.get("/students/delete/:id", async (req, res) => {
+    try {
+        await deleteStudentById(req.params.id); // Call the MySQL method
+        res.redirect("/students"); // Redirect to the students page after successful deletion
+    } catch (err) {
+        console.error("Error deleting student:", err);
+        res.status(500).send("Error deleting student from database");
     }
 });
 

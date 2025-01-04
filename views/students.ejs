@@ -27,12 +27,21 @@
         a:hover {
             text-decoration: underline;
         }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>Students List</h1>
 
-    <button><a href="/students/add">Add Student</a></button>
+    <button style="margin-bottom: 10px;"><a href="/students/add" style="color: white; font-weight: bold;">Add Student</a></button>
+    
 
     <table>
         <thead>
@@ -49,7 +58,14 @@
                     <td><%= student.sid %></td>
                     <td><%= student.name %></td>
                     <td><%= student.age %></td>
-                    <td><a href="/students/update/<%= student.sid %>">Update</a></td>
+                    <td>
+                        
+                        <a href="/students/update/<%= student.sid %>">Update</a>
+                        <br>
+                        <a href="/students/delete/<%= student.sid %>">Delete</a>
+
+                        
+                    </td>
                 </tr>
             <% }) %>
         </tbody>
