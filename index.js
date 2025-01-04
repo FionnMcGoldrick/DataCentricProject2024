@@ -69,25 +69,27 @@ app.post("/students/add", async (req, res) => {
 // Get student by ID and render the update page
 app.get("/students/update/:id", async (req, res) => {
     try {
-      const student = await getStudentById(req.params.id);
-      res.render("updatestudent", { student });
+        const student = await getStudentById(req.params.id);
+        res.render("updatestudent", { student });
     } catch (err) {
-      console.error("Error retrieving student:", err);
-      res.status(500).send("Error retrieving student from database");
+        console.error("Error retrieving student:", err);
+        res.status(500).send("Error retrieving student from database");
     }
-  });
-  
-  // Update the student in the database
-  app.post("/students/update", async (req, res) => {
+});
+
+// Update the student in the database
+app.post("/students/update", async (req, res) => {
     const { sid, name, age } = req.body;
     try {
-      await updateStudent(sid, name, age);
-      res.redirect("/students");
+        await updateStudent(sid, name, age); // Update the student in the database
+        res.redirect("/students"); // Redirect back to the student list
     } catch (err) {
-      console.error("Error updating student:", err);
-      res.status(500).send("Error updating student in database");
+        console.error("Error updating student:", err);
+        res.status(500).send("Error updating student in database");
     }
-  });
+});
+
+  
 
 
 // Get student by ID and render the update page
