@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const { getStudents, getGrades, addStudent} = require("./mysql");
+const { getStudents, addStudent, getStudentById, updateStudent } = require("./mysql");
 const { getLecturers } = require("./mongodb");
 
 // Initialize the app
@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// Start the server
+// Start the server on port 3004
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
     `);
 });
 
-// Students route
+//get all students
 app.get("/students", async (req, res) => {
     try {
         const students = await getStudents(); // Call the MySQL method
@@ -66,15 +66,53 @@ app.post("/students/add", async (req, res) => {
     }
 });     
 
-app.get("/students/:id", async (req, res) => {
+// Get student by ID and render the update page
+app.get("/students/update/:id", async (req, res) => {
     try {
-        const student = await getStudentById(req.params.id);
-        res.render("student", { student });
+      const student = await getStudentById(req.params.id);
+      res.render("updatestudent", { student });
     } catch (err) {
-        console.error("Error retrieving student:", err);
-        res.status(500).send("Error retrieving student from database");
+      console.error("Error retrieving student:", err);
+      res.status(500).send("Error retrieving student from database");
     }
-});
+  });
+  
+  // Update the student in the database
+  app.post("/students/update", async (req, res) => {
+    const { sid, name, age } = req.body;
+    try {
+      await updateStudent(sid, name, age);
+      res.redirect("/students");
+    } catch (err) {
+      console.error("Error updating student:", err);
+      res.status(500).send("Error updating student in database");
+    }
+  });
+
+
+// Get student by ID and render the update page
+app.get("/students/update/:id", async (req, res) => {
+    try {
+      const student = await getStudentById(req.params.id);
+      res.render("updatestudent", { student });
+    } catch (err) {
+      console.error("Error retrieving student:", err);
+      res.status(500).send("Error retrieving student from database");
+    }
+  });
+  
+  // Update the student in the database
+  app.post("/students/update", async (req, res) => {
+    const { sid, name, age } = req.body;
+    try {
+      await updateStudent(sid, name, age);
+      res.redirect("/students");
+    } catch (err) {
+      console.error("Error updating student:", err);
+      res.status(500).send("Error updating student in database");
+    }
+  });
+    
 
 
 // Grades route

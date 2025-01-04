@@ -49,6 +49,41 @@ const addStudent = async (name, age, sid) => {
     });
 };
 
+const getStudentById = async (sid) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        "SELECT * FROM student WHERE sid = ?",
+        [sid],
+        (err, results) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results[0]); // Return the first result
+          }
+        }
+      );
+    });
+  };
+  
+  // Method for updating a student
+  const updateStudent = async (sid, name, age) => {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        "UPDATE student SET name = ?, age = ? WHERE sid = ?",
+        [name, age, sid],
+        (err, results) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results);
+          }
+        }
+      );
+    });
+  };
+  
+
+
 
 
 
@@ -80,5 +115,8 @@ const getGrades = async () => {
 module.exports = {
     getStudents,
     getGrades,
-    addStudent, 
-};
+    addStudent,
+    getStudentById, 
+    updateStudent, 
+  };
+  
