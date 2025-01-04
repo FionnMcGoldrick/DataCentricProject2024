@@ -19,12 +19,12 @@ const lecturerSchema = new mongoose.Schema({
 });
 
 //collection name
-const lecturer = mongoose.model('lecturer', lecturerSchema);
+const Lecturer = mongoose.model('lecturers', lecturerSchema);
 
 //get all lecturers
 const getLecturers = async () => {
     try {
-        return await lecturer.find({}).sort({ _id: 1 }); 
+        return await Lecturer.find({}).sort({ _id: 1 }); 
     } catch (err) {
         console.error('Error fetching lecturers:', err);
         throw err;

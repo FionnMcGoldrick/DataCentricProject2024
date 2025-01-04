@@ -43,14 +43,20 @@
                 </tr>
             </thead>
             <tbody>
-                <% lecturers.forEach(function(lecturer) { %>
+                <% lecturer.forEach((lecturer)=> { %>
                     <tr>
-                        <td><%= lecturer._id %></td>
-                        <td><%= lecturer.name %></td>
-                        <td><%= lecturer.did %></td>
-                        <td>Delete</td>
+                        <td>
+                            <%= lecturer._id %>
+                        </td>
+                        <td>
+                            <%= lecturer.name %>
+                        </td>
+                        <td>
+                            <%= lecturer.did %>
+                        </td>
+                        <td><a href="/lecturers/delete/<%= lecturer._id %>">Delete</a></td>
                     </tr>
-                <% }); %>
+                    <% }); %>
             </tbody>
         </table>
     </div>
