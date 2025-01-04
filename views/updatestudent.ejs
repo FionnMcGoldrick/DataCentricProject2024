@@ -55,13 +55,32 @@
         background-color: #218838;
     }
 </style>
+
+<script>
+    document.getElementById("updateStudentForm").addEventListener("submit", function (event) {
+        const nameInput = document.getElementById("name").value.trim();
+        const ageInput = parseInt(document.getElementById("age").value, 10);
+
+        if (nameInput.length < 3) {
+            alert("Name must be at least 3 characters long.");
+            event.preventDefault(); // Prevent form submission
+        }
+
+        if (isNaN(ageInput) || ageInput <= 18) {
+            alert("Age must be greater than 18.");
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+
+</script>
+
 <body>
     <h1>Update Student</h1>
-    <form action="/students/update" method="POST">
+    <form id="updateStudentForm" action="/students/update" method="POST">
         <table>
             <tr>
                 <td><label for="name">Name:</label></td>
-                <td><input type="text" id="name" name="name" value="<%= student.name %>" required></td>
+                <td><input type="text" id="name" name="name" value="<%= student.name %>" minlength="2" required></td>
             </tr>
             <tr>
                 <td><label for="id">ID:</label></td>
@@ -69,7 +88,7 @@
             </tr>
             <tr>
                 <td><label for="age">Age:</label></td>
-                <td><input type="number" id="age" name="age" value="<%= student.age %>" required></td>
+                <td><input type="number" id="age" name="age" value="<%= student.age %>" min="18" required></td>
             </tr>
             <tr>
                 <td colspan="2"><button type="submit">Update Student</button></td>
