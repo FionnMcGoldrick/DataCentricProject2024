@@ -2,8 +2,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const { getStudents, getGrades, getModules} = require("./mysql");
-const { get } = require("http");
+const { getStudents, getGrades} = require("./mysql");
 
 // Initialize the app
 const app = express();
@@ -19,6 +18,11 @@ app.use(express.static(path.join(__dirname, "public")));
 // Set view engine to EJS
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// Start the server
+app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
+});
 
 // Home route
 app.get("/", (req, res) => {
@@ -54,7 +58,8 @@ app.get("/grades", async (req, res) => {
     }
   });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
-});
+  app.get("/lecturers", async (req, res) => {
+    res.render("lecturers");
+  });
+
+

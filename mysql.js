@@ -56,22 +56,9 @@ const getGrades = async () => {
   });
 };
 
-// Method for getting all modules
-const getModules = async () => {
-  return new Promise((resolve, reject) => {
-    pool.query("SELECT * FROM module ORDER BY mid ASC", (err, results) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(results);
-      }
-    });
-  });
-};
 
 // Export functions and database
 module.exports = {
   getStudents,
-  getGrades,
-  getModules,
+  getGrades
 };
