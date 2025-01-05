@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { getStudents, addStudent, getStudentById, updateStudent, getGrades, deleteStudentById } = require("./mysql");
-const { getLecturers, deleteLecturerById, getLecturerById, updateLecturer } = require("./mongodb");
+const { getLecturers, deleteLecturerById, getLecturerById, updateLecturer, addLecturer } = require("./mongodb");
 
 // Initialize the app
 const app = express();
@@ -174,4 +174,20 @@ app.post("/lecturers/update/:id", async (req, res) => {
     }
 });
 
+//method to go to the addlecturer page
+app.get("/lecturers/add", (req, res) => {
+    res.render("addlecturer"); // Render the EJS page for adding a lecturer
+});
+
+//method that updates the lecturer in the database
+app.post("/lecturers/add", async (req, res) => {
+    const { _id, name, did } = req.body;
+    try {
+        await addLecturer(_id, name, did); // Call the MongoDB method
+        res.redirect("/lecturers"); // Redirect to the lecturers page after successful addition
+    } catch (err) {
+        console.error("Error adding lecturer:", err);
+        res.status(500).send("Error adding lecturer to database");
+    }
+});
 

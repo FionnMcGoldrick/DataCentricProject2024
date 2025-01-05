@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Lecturer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        select{
+            height: 50px;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+
+        //Stricter JavaScript script that checks if the Lecturer ID begins the the capital letter L and only contains 3 digits after that.
+        function validateLecturerID() {
+            const _id = document.getElementById('_id').value.trim();
+            const _idPattern = /^L\d{3}$/; // Matches 'L' followed by exactly 3 digits.
+
+            if (!_idPattern.test(_id)) {
+                alert('Lecturer ID must start with "L" and be followed by exactly 3 digits, e.g., "L123".');
+                return false; // Prevent form submission.
+            }
+            return true; // Allow form submission.
+        }
+
+
+
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Back Button -->
+        <div style="margin-bottom: 20px; text-align: center;">
+            <button onclick="window.location.href='/'" style="
+                background-color: #007BFF; 
+                color: white; 
+                border: none; 
+                padding: 10px 20px; 
+                border-radius: 5px; 
+                width: 200px;
+                margin-top: 20px;
+                cursor: pointer;
+            ">
+                Back to Home
+            </button>
+        </div>
+
+        <h1>Add a New Lecturer</h1>
+
+        <form id="addLecturerForm" action="/lecturers/add" method="POST" onsubmit="return validateLecturerID()">
+            <label for="_id">Lecturer ID:</label>
+            <input type="text" id="_id" name="_id" required minlength="4"
+                title="Lecturer ID must be 4 characters long, alphanumeric, and start with 'L'">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" minlength="2" maxlength="50" required
+                title="Name must be between 2 and 50 characters.">
+
+                    <label for="did">Department:</label>
+                    <select id="did" name="did"required>
+                        <option value="ART">ART</option>
+                        <option value="CIV">CIV</option>
+                        <option value="COM">COM</option>
+                        <option value="ENG">ENG</option>
+                        <option value="MAT">MAT</option>
+                        <option value="MEC">MEC</option>
+                        <option value="SOC">SOC</option>
+                    </select>                    
+
+            <button type="submit">Add Lecturer</button>
+        </form>
+
+    </div>
+</body>
+
+</html>

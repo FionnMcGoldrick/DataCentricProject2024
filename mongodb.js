@@ -64,8 +64,18 @@ const updateLecturer = async (id, name, did) => {
     }
 };
 
+//add a lecturer
+const addLecturer = async (id, name, did) => {
+    try {
+        const lecturer = new Lecturer({ _id: id, name, did });
+        return await lecturer.save();
+    } catch (err) {
+        throw err;
+    }
+};
+
 
 
 //add exports
-module.exports = { getLecturers, getLecturerById, deleteLecturerById, updateLecturer };
+module.exports = { getLecturers, getLecturerById, deleteLecturerById, updateLecturer, addLecturer };
 

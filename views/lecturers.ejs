@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,31 +10,38 @@
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
             color: black;
         }
+
         th {
             background-color: #f4f4f4;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         a {
             text-decoration: none;
             color: #007BFF;
         }
+
         a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
 
-     <!-- Back Button -->
-     <div style="margin-bottom: 20px;">
+    <!-- Back Button -->
+    <div style="margin-bottom: 20px;">
         <button onclick="window.location.href='/'" style="
             background-color: #007BFF; 
             color: white; 
@@ -44,9 +52,31 @@
         ">
             Back to Home
         </button>
+
     </div>
 
+    <div style="text-align: center; margin-bottom: 20px; ">
+        <button onclick="window.location.href='/lecturers/add'" style="
+            background-color: #007BFF; 
+        color: white; 
+        border: none; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        width: 200px;
+        margin-top: 20px;
+        cursor: pointer;
+        ">
+            Add Lecturer
+        </button>
+
+    </div>
+
+
+
     <div class="container">
+
+
+
         <h1>Lecturers</h1>
         <table>
             <thead>
@@ -80,4 +110,5 @@
         </table>
     </div>
 </body>
+
 </html>
