@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Add Student</title>
     <style>
@@ -58,43 +59,46 @@
         }
     </style>
 
+    <script>
+
+        //Stricter JavaScript script that checks if the student ID begins the the capital letter G and only contains 3 digits after that.
+        function validateStudentID() {
+            const sid = document.getElementById('sid').value.trim();
+            const sidPattern = /^G\d{3}$/; // Matches 'G' followed by exactly 3 digits.
+
+            if (!sidPattern.test(sid)) {
+                alert('Student ID must start with "G" and be followed by exactly 3 digits, e.g., "G123".');
+                return false; // Prevent form submission.
+            }
+            return true; // Allow form submission.
+        }
+
+
+
+    </script>
+
 </head>
+
 <body>
     <div class="container">
         <h1>Add a New Student</h1>
-        <form id="addStudentForm" action="/students/add" method="POST">
+        <form id="addStudentForm" action="/students/add" method="POST" onsubmit="return validateStudentID()">
             <label for="sid">Student ID:</label>
-            <input 
-                type="text" 
-                id="sid" 
-                name="sid" 
-                required 
-                minlength="4"
+            <input type="text" id="sid" name="sid" required minlength="4"
                 title="Student ID must be 4 characters long, alphanumeric, and start with 'G'">
-        
+
             <label for="name">Name:</label>
-            <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                minlength="2" 
-                maxlength="50" 
-                required 
+            <input type="text" id="name" name="name" minlength="2" maxlength="50" required
                 title="Name must be between 2 and 50 characters.">
-        
+
             <label for="age">Age:</label>
-            <input 
-                type="number" 
-                id="age" 
-                name="age" 
-                min="18" 
-                max="100" 
-                required 
+            <input type="number" id="age" name="age" min="18" max="100" required
                 title="Age must be between 18 and 100.">
-        
+
             <button type="submit">Add Student</button>
         </form>
-        
+
     </div>
 </body>
+
 </html>
