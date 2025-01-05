@@ -34,15 +34,13 @@ const getLecturers = async () => {
 
 //get lecturers by id 
 const getLecturerById = async (id) => {
-    return new Promise((resolve, reject) => {
-        lecturer.findById(id, (err, results) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(results);
-            }
-        });
-    });
+    try {
+        const results = await Lecturer.findById(id); // Returns a Promise
+        return results;
+    } catch (err) {
+        console.error('Error fetching lecturer by id:', err);
+        throw err;
+    }
 };
 
 //delete lecturer by id
@@ -55,8 +53,19 @@ const deleteLecturerById = async (id) => {
     }
 };
 
+//update lecturer by id
+const updateLecturer = async (id, name, did) => {
+    try {
+        const results = await Lecturer.findByIdAndUpdate(id, { name, did }, { new: true }); // Returns a Promise
+        return results;
+    }
+    catch (err) {
+        throw err; // Rethrow error to handle it upstream
+    }
+};
+
 
 
 //add exports
-module.exports = { getLecturers, getLecturerById, deleteLecturerById };
+module.exports = { getLecturers, getLecturerById, deleteLecturerById, updateLecturer };
 

@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { getStudents, addStudent, getStudentById, updateStudent, getGrades, deleteStudentById } = require("./mysql");
-const { getLecturers, deleteLecturerById } = require("./mongodb");
+const { getLecturers, deleteLecturerById, getLecturerById, updateLecturer } = require("./mongodb");
 
 // Initialize the app
 const app = express();
@@ -104,6 +104,17 @@ app.get("/students/update/:id", async (req, res) => {
       res.status(500).send("Error updating student in database");
     }
   });
+
+  //method to delete a student by id
+app.get("/students/delete/:id", async (req, res) => {
+    try {
+        await deleteStudentById(req.params.id); // Call the MySQL method
+        res.redirect("/students"); // Redirect to the students page after successful deletion
+    } catch (err) {
+        console.error("Error deleting student:", err);
+        res.status(500).send("Error deleting student from database");
+    }
+});
     
 //method to get the grades
 app.get("/grades", async (req, res) => {
@@ -139,14 +150,27 @@ app.get("/lecturers/delete/:id", async (req, res) => {
     }
 });
 
-//method to delete a student by id
-app.get("/students/delete/:id", async (req, res) => {
+//method that gets lecturer by id and renders the update page
+app.get("/lecturers/update/:id", async (req, res) => {
     try {
-        await deleteStudentById(req.params.id); // Call the MySQL method
-        res.redirect("/students"); // Redirect to the students page after successful deletion
+        const lecturer = await getLecturerById(req.params.id);
+        res.render("updatelecturer", { lecturer });
     } catch (err) {
-        console.error("Error deleting student:", err);
-        res.status(500).send("Error deleting student from database");
+        console.error("Error retrieving lecturer:", err);
+        res.status(500).send("Error retrieving lecturer from database");
+    }
+});
+
+
+//method that gets lecturer by id and updates it
+app.post("/lecturers/update/:id", async (req, res) => {
+    const { id, name, did } = req.body;
+    try {
+        await updateLecturer(id, name, did); // Call the MongoDB method
+        res.redirect("/lecturers"); // Redirect to the lecturers page after successful update
+    } catch (err) {
+        console.error("Error updating lecturer:", err);
+        res.status(500).send("Error updating lecturer in database");
     }
 });
 

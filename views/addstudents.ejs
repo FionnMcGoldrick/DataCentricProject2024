@@ -79,9 +79,29 @@
 
 </head>
 
+
+
 <body>
     <div class="container">
+
+        <!-- Back Button -->
+        <div style="margin-bottom: 20px; text-align: center;">
+            <button onclick="window.location.href='/'" style="
+                background-color: #007BFF; 
+                color: white; 
+                border: none; 
+                padding: 10px 20px; 
+                border-radius: 5px; 
+                width: 200px;
+                margin-top: 20px;
+                cursor: pointer;
+            ">
+                Back to Home
+            </button>
+        </div>
+
         <h1>Add a New Student</h1>
+
         <form id="addStudentForm" action="/students/add" method="POST" onsubmit="return validateStudentID()">
             <label for="sid">Student ID:</label>
             <input type="text" id="sid" name="sid" required minlength="4"
