@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,30 +10,37 @@
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f4f4f4;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         a {
             text-decoration: none;
             color: #007BFF;
         }
+
         a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
 
-     <!-- Back Button -->
-     <div style="margin-bottom: 20px;">
+    <!-- Back Button -->
+    <div style="margin-bottom: 20px;">
         <button onclick="window.location.href='/'" style="
             background-color: #007BFF; 
             color: white; 
@@ -55,21 +63,28 @@
                     <th>Grade</th>
                 </tr>
             </thead>
+
+            <!-- Loop through grades and display each grade -->
+
             <tbody>
-                <tbody>
-                    
-                        <% grades.forEach(function(grade) { %>
-                          <tr>
-                            <td><%= grade.student_name %></td>
-                            <td><%= grade.module_name %></td>
-                            <td><%= grade.grade %></td>
-                          </tr>
-                        <% }); %>
-                      
-                </tbody>
-                
+
+                <% grades.forEach(function(grade) { %>
+                    <tr>
+                        <td>
+                            <%= grade.student_name %>
+                        </td>
+                        <td>
+                            <%= grade.module_name %>
+                        </td>
+                        <td>
+                            <%= grade.grade %>
+                        </td>
+                    </tr>
+                    <% }); %>
+
             </tbody>
         </table>
     </div>
 </body>
+
 </html>

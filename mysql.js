@@ -32,58 +32,52 @@ const getStudents = async () => {
   });
 };
 
-//method for adding a student
+// Method for adding a student
 const addStudent = async (name, age, sid) => {
-    return new Promise((resolve, reject) => {
-        pool.query(
-            "INSERT INTO student (name, age, sid) VALUES (?, ?, ?)",
-            [name, age, sid],
-            (err, results) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(results);
-                }
-            }
-        );
-    });
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "INSERT INTO student (name, age, sid) VALUES (?, ?, ?)",
+      [name, age, sid],
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
 };
 
 // Method for getting a student by ID
 const getStudentById = async (sid) => {
-    return new Promise((resolve, reject) => {
-        pool.query(
-            "SELECT * FROM student WHERE sid = ?",
-            [sid],
-            (err, results) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(results[0]); // Return the first result
-                }
-            }
-        );
+  return new Promise((resolve, reject) => {
+    pool.query("SELECT * FROM student WHERE sid = ?", [sid], (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results[0]); // Return the first result
+      }
     });
+  });
 };
 
-  
-  // Method for updating a student
-  const updateStudent = async (sid, name, age) => {
-    return new Promise((resolve, reject) => {
-        pool.query(
-            "UPDATE student SET name = ?, age = ? WHERE sid = ?",
-            [name, age, sid],
-            (err, results) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(results);
-                }
-            }
-        );
-    });
+// Method for updating a student
+const updateStudent = async (sid, name, age) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "UPDATE student SET name = ?, age = ? WHERE sid = ?",
+      [name, age, sid],
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
 };
-
 
 // Method for getting all grades
 const getGrades = async () => {
@@ -109,31 +103,29 @@ const getGrades = async () => {
   });
 };
 
-
-//method for deleting a student from database
+// Method for deleting a student by ID
 const deleteStudentById = async (sid) => {
   return new Promise(async (resolve, reject) => {
-      try {
-          // Delete related grades first
-          await pool.query("DELETE FROM grade WHERE sid = ?", [sid]);
-          
-          // Delete the student
-          await pool.query("DELETE FROM student WHERE sid = ?", [sid]);
+    try {
+      // Delete related grades first
+      await pool.query("DELETE FROM grade WHERE sid = ?", [sid]);
 
-          resolve();
-      } catch (err) {
-          reject(err);
-      }
+      // Delete the student
+      await pool.query("DELETE FROM student WHERE sid = ?", [sid]);
+
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
   });
 };
 
 // Exporting the methods
 module.exports = {
-    getStudents,
-    getGrades,
-    addStudent,
-    getStudentById, 
-    updateStudent, 
-    deleteStudentById
-  };
-  
+  getStudents,
+  getGrades,
+  addStudent,
+  getStudentById,
+  updateStudent,
+  deleteStudentById,
+};

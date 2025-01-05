@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +13,12 @@
             margin: 0;
             padding: 0;
         }
+
         h1 {
             text-align: center;
             color: #495057;
         }
+
         form {
             max-width: 500px;
             margin: 40px auto;
@@ -24,19 +27,25 @@
             border-radius: 5px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
+
         td {
             padding: 10px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-        input[type="text"], input[type="number"], select {
+
+        input[type="text"],
+        input[type="number"],
+        select {
             width: 100%;
             margin-bottom: 10px;
             padding: 10px;
@@ -44,6 +53,7 @@
             border: 1px solid #ced4da;
             border-radius: 4px;
         }
+
         button {
             width: 100%;
             padding: 10px;
@@ -54,11 +64,13 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
 
     <!-- Back Button -->
@@ -83,18 +95,19 @@
         <form action="/lecturers/update/<%= lecturer.id %>" method="POST">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="<%= lecturer.name %>" minlength="2" title="Name must be more than one letter long" required>
+                <input type="text" id="name" name="name" value="<%= lecturer.name %>" minlength="2"
+                    title="Name must be more than one letter long" required>
             </div>
             <div class="form-group">
                 <label for="did">Department:</label>
                 <select id="did" name="did" required>
-                    <option value="ART" <%= lecturer.did === "ART" ? "selected" : "" %>>ART</option>
-                    <option value="CIV" <%= lecturer.did === "CIV" ? "selected" : "" %>>CIV</option>
-                    <option value="COM" <%= lecturer.did === "COM" ? "selected" : "" %>>COM</option>
-                    <option value="ENG" <%= lecturer.did === "ENG" ? "selected" : "" %>>ENG</option>
-                    <option value="MAT" <%= lecturer.did === "MAT" ? "selected" : "" %>>MAT</option>
-                    <option value="MEC" <%= lecturer.did === "MEC" ? "selected" : "" %>>MEC</option>
-                    <option value="SOC" <%= lecturer.did === "SOC" ? "selected" : "" %>>SOC</option>
+                    <option value="ART" <%=lecturer.did==="ART" ? "selected" : "" %>>ART</option>
+                    <option value="CIV" <%=lecturer.did==="CIV" ? "selected" : "" %>>CIV</option>
+                    <option value="COM" <%=lecturer.did==="COM" ? "selected" : "" %>>COM</option>
+                    <option value="ENG" <%=lecturer.did==="ENG" ? "selected" : "" %>>ENG</option>
+                    <option value="MAT" <%=lecturer.did==="MAT" ? "selected" : "" %>>MAT</option>
+                    <option value="MEC" <%=lecturer.did==="MEC" ? "selected" : "" %>>MEC</option>
+                    <option value="SOC" <%=lecturer.did==="SOC" ? "selected" : "" %>>SOC</option>
                 </select>
             </div>
             <div class="form-group">
@@ -105,4 +118,5 @@
         </form>
     </div>
 </body>
+
 </html>
