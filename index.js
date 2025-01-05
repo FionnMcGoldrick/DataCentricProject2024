@@ -27,14 +27,7 @@ app.listen(port, () => {
 
 // Home route
 app.get("/", (req, res) => {
-    res.send(`
-        <h1>G00422349</h1>
-        <ul>
-            <li><a href="/students">Students Page</a></li>
-            <li><a href="/grades">Grades Page</a></li>
-            <li><a href="/lecturers">Lecturer Page</a></li>
-        </ul>
-    `);
+    res.render("home"); // Render the EJS page
 });
 
 //get all students
